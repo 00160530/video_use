@@ -1,0 +1,18 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<iframe id="f1" src="https://docs.google.com/forms/d/e/1FAIpQLSdJTJuXcyjlKNMk7uKElYsbiitXZAznl6vyC0xg7WUW0xsxQg/viewform"
+		style="width: 30%;height: 100%;"></iframe>
+		<iframe id="f2" src="https://docs.google.com/spreadsheets/d/1NMB3lHrhNESytmm-Exd5K-1f8Cs4QlF06BVedYDQ6EE/edit?resourcekey#gid=841726895"
+		style="width: 67%;height: 100%;"></iframe>
+	</body>
+</html>
+<script>
+	var moving = false;
+	document.onmousemove = function(){moving=true;console.log("moving")};
+	setInterval(function(){
+		moving = false;//半小時沒動作就重整
+		document.getElementById("f1").src = document.getElementById("f1").src;
+	},1800000)
+</script>
