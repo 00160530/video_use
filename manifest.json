@@ -1,0 +1,15 @@
+{
+  "name": "記得打卡",
+  "short_name": "記得打卡",
+  "start_url": "打卡.html",
+  "display": "standalone",
+  "background_color": "#d1d1d1",
+  "theme_color": "#cfe2fc",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon-128x128.png",
+      "type": "image/png","sizes": "128x128"
+    }
+  ]
+}
