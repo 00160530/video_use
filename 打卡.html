@@ -26,7 +26,7 @@
 	<body>
 		<div style="display:flex;width: 100%;height: 100%;">
 			<div style="width: 40%;height: 100%;">
-				<span style="font-size: 1rem;font-weight: bold;">Beta1.0</span></br>
+				<span style="font-size: 1rem;font-weight: bold;">Beta1.1</span></br>
 				<span id="s1" style="font-size: 1rem;font-weight: bold;"></span>
 				<input id="f1" type="button" class="btnS" value="打卡" onclick="checkin();"/>
 			</div>
@@ -39,20 +39,12 @@
 </html>
 <script>
 	var checkinTime = new Date();
-	var timerID = null;
-	var timerCnt = 0;
 	function checkin(){
 		checkinTime = new Date();
 		document.getElementById("f1").disabled = true;
 		PostXHR("https://docs.google.com/forms/d/e/1FAIpQLSdJTJuXcyjlKNMk7uKElYsbiitXZAznl6vyC0xg7WUW0xsxQg/formResponse",function(ret){
-			document.getElementById("f2").location.reload();
-			clearInterval(timerID);
-			timerCnt = 0;
-			timerID = setInterval(function(){
-				timerCnt++;
-				document.getElementById("f2").location.reload();
-				if(timerCnt==20) clearInterval(timerID);
-			}, 100);
+			document.getElementById('f2').src += ''; //更新表單
+			
 			if(ret==1){
 				//document.getElementById("s1").innerHTML="打卡成功！時間：" +  checkinTime.toLocaleString('sv');
 			}
