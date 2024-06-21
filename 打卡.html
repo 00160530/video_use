@@ -4,19 +4,86 @@
 		<link rel="apple-touch-icon" href="icon-128x128.png" />
 		<meta name="apple-mobile-web-app-status-bar" content="#cfe2fc" />
 		<meta name="theme-color" content="#cfe2fc" />
+		<style>
+			.btnS{
+				font-size: 5rem;
+				width: 80%;
+				height: 300px;
+				border:0;
+				background-color:#003C9D;
+				color:#fff;
+				border-radius:10px;
+				cursor:pointer;
+			}
+			.btnS:hover{
+				color:#003C9D;
+				background-color:#fff;
+				border:2px #003C9D solid;
+			}
+		</style>
 	</head>
 	<body>
-		<iframe id="f1" src="https://docs.google.com/forms/d/e/1FAIpQLSdJTJuXcyjlKNMk7uKElYsbiitXZAznl6vyC0xg7WUW0xsxQg/viewform"
-		style="width: 30%;height: 100%;"></iframe>
-		<iframe id="f2" src="https://docs.google.com/spreadsheets/d/1NMB3lHrhNESytmm-Exd5K-1f8Cs4QlF06BVedYDQ6EE/edit?resourcekey#gid=841726895"
-		style="width: 67%;height: 100%;"></iframe>
+		<div style="display:flex;width: 100%;height: 100%;">
+			<div style="width: 30%;height: 100%;">
+				<span id="s1" style="font-size: 1rem;font-weight: bold;"></span>
+				<input id="f1" type="button" class="btnS" value="打卡" onclick="checkin();"/>
+			</div>
+			<iframe id="f2" src="https://docs.google.com/spreadsheets/d/1NMB3lHrhNESytmm-Exd5K-1f8Cs4QlF06BVedYDQ6EE/edit?resourcekey#gid=841726895"
+			style="width: 67%;height: 100%;"></iframe>
+		</div>
+		<!-- <iframe id="f1" src="https://docs.google.com/forms/d/e/1FAIpQLSdJTJuXcyjlKNMk7uKElYsbiitXZAznl6vyC0xg7WUW0xsxQg/viewform"
+		style="width: 30%;height: 100%;"></iframe> -->
 	</body>
 </html>
 <script>
-	var moving = false;
-	document.onmousemove = function(){moving=true;console.log("moving")};
+	var checkinTime = new Date();
+	function checkin(){
+		checkinTime = new Date();
+		document.getElementById("f1").disabled = true;
+		PostXHR("https://docs.google.com/forms/d/e/1FAIpQLSdJTJuXcyjlKNMk7uKElYsbiitXZAznl6vyC0xg7WUW0xsxQg/formResponse",function(ret){
+			document.getElementById("f2").location.reload();
+			if(ret==1){
+				//document.getElementById("s1").innerHTML="打卡成功！時間：" +  checkinTime.toLocaleString('sv');
+			}
+			else{
+				//document.getElementById("s1").innerHTML="打卡失敗XXXXXX：" + checkinTime.toLocaleString('sv');
+			}
+		});
+	}
 	setInterval(function(){
-		moving = false;//半小時沒動作就重整
-		document.getElementById("f1").src = document.getElementById("f1").src;
-	},1800000)
+		if((new Date()-checkinTime)/1000 > 1.2){
+			document.getElementById("f1").disabled = false;
+		}
+	},500);
+	
+	
+	function PostXHR(url, callback) {
+		if (!url) {
+			if (callback)
+				callback(0);
+		} else {
+			try {
+				var xhr = new XMLHttpRequest();
+				xhr.open("POST", url);
+				xhr.onload = function (e) {
+					xhr = null;
+					url = null;
+					if (callback)
+						callback(1);
+				};
+				xhr.onerror = function (e) {
+					if (callback)
+						callback(0);
+					console.log("XMLHttpRequest onerror err:" + xhr.statusText);
+					xhr = null;
+				};
+				xhr.send(null);
+			}
+			catch (ex) {
+				if (callback)
+					callback(0);
+				console.log("XMLHttpRequest catch err:" + xhr.statusText);
+			}
+		}
+	}
 </script>
