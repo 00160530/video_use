@@ -26,12 +26,12 @@
 	<body>
 		<div style="display:flex;width: 100%;height: 100%;">
 			<div style="width: 40%;height: 100%;">
-				<span style="font-size: 1rem;font-weight: bold;">Beta1.1</span></br>
+				<span style="font-size: 1rem;font-weight: bold;">Beta1.2</span></br>
 				<span id="s1" style="font-size: 1rem;font-weight: bold;"></span>
 				<input id="f1" type="button" class="btnS" value="打卡" onclick="checkin();"/>
 			</div>
 			<iframe id="f2" src="https://docs.google.com/spreadsheets/d/1NMB3lHrhNESytmm-Exd5K-1f8Cs4QlF06BVedYDQ6EE/edit?resourcekey#gid=841726895"
-			style="width: 57%;height: 100%;"></iframe>
+			style="width: 57%;height: 100%;" onload="gridLoaded()"></iframe>
 		</div>
 		<!-- <iframe id="f1" src="https://docs.google.com/forms/d/e/1FAIpQLSdJTJuXcyjlKNMk7uKElYsbiitXZAznl6vyC0xg7WUW0xsxQg/viewform"
 		style="width: 30%;height: 100%;"></iframe> -->
@@ -53,12 +53,21 @@
 			}
 		});
 	}
-	setInterval(function(){
+	setInterval(function(){//打卡按鈕開放
 		if((new Date()-checkinTime)/1000 > 1.2){
 			document.getElementById("f1").disabled = false;
 		}
 	},500);
 	
+	var lastRefreshT = new Date();
+	function gridLoaded(){
+		lastRefreshT = new Date();
+	}
+	setInterval(function(){//5分鐘更新一次表格
+		if((new Date()-lastRefreshT)/1000 > 300){
+			document.getElementById('f2').src += ''; 
+		}
+	},1000);
 	
 	function PostXHR(url, callback) {
 		if (!url) {
