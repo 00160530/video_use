@@ -43,6 +43,9 @@
 		document.getElementById("f1").disabled = true;
 		PostXHR("https://docs.google.com/forms/d/e/1FAIpQLSdJTJuXcyjlKNMk7uKElYsbiitXZAznl6vyC0xg7WUW0xsxQg/formResponse",function(ret){
 			document.getElementById("f2").location.reload();
+			setTimeout(function(){
+				document.getElementById("f2").location.reload();
+			}, 400);
 			if(ret==1){
 				//document.getElementById("s1").innerHTML="打卡成功！時間：" +  checkinTime.toLocaleString('sv');
 			}
