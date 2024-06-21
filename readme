@@ -9,7 +9,8 @@ firebase模擬資料庫：https://stackoverflow.com/questions/31655085/database-
 
 //芒果DB
 部落格：https://topperchi.medium.com/mongodb-atlas-cloud-misunderstanding-295281553769
-前端連線說明：https://www.mongodb.com/docs/atlas/app-services/data-api/
+前端連線說明官方說明：https://www.mongodb.com/docs/atlas/app-services/data-api/
+前端連線論壇發問：https://www.mongodb.com/community/forums/t/how-to-properly-connect-to-mongodb-through-front-end-application/197911
 
 //免費後端
 Realm 應用程式有大量的免費套餐
