@@ -38,14 +38,20 @@
 </html>
 <script>
 	var checkinTime = new Date();
+	var timerID = null;
+	var timerCnt = 0;
 	function checkin(){
 		checkinTime = new Date();
 		document.getElementById("f1").disabled = true;
 		PostXHR("https://docs.google.com/forms/d/e/1FAIpQLSdJTJuXcyjlKNMk7uKElYsbiitXZAznl6vyC0xg7WUW0xsxQg/formResponse",function(ret){
 			document.getElementById("f2").location.reload();
-			setTimeout(function(){
+			clearInterval(timerID);
+			timerCnt = 0;
+			timerID = setInterval(function(){
+				timerCnt++;
 				document.getElementById("f2").location.reload();
-			}, 400);
+				if(timerCnt==20) clearInterval(timerID);
+			}, 100);
 			if(ret==1){
 				//document.getElementById("s1").innerHTML="打卡成功！時間：" +  checkinTime.toLocaleString('sv');
 			}
